@@ -4,7 +4,8 @@
   "description": "Aplicativo para controle de chamados internos Ello",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "vendor-copy"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,18 @@
   },
   "homepage": "https://github.com/claytonaalves/galadriel#readme",
   "dependencies": {
+    "jquery": "^3.2.1",
+    "materialize-css": "^0.100.2",
     "vendor-copy": "^1.3.1"
-  }
+  },
+  "vendorCopy": [
+    {
+      "from": "node_modules/jquery/dist",
+      "to": "app/static/js"
+    },
+    {
+      "from": "node_modules/materialize-css/dist",
+      "to": "app/static"
+    }
+  ]
 }

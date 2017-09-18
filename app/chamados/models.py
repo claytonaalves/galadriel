@@ -8,6 +8,7 @@ class Chamado(db.Model):
     solicitante = db.Column(db.Text)
     situacao = db.Column(db.String(255))
     descricao = db.Column(db.Text())
-
+    solicitante = db.Column(db.String(30))
+    
     def __init__(self):
         self.senha = '1234'

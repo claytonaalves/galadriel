@@ -4,9 +4,8 @@ Aplicativo para controle de chamados internos Ello
 
 ## Preparação do ambiente de desenvolvimento
 
-### Instalar Virtualenv
-
-TODO...
+- Instalar Virtualenv
+- Instalar node/npm
 
 ### Ativar virtualenv e instalar dependências
 

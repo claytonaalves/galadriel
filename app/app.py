@@ -1,42 +1,21 @@
 """ Aplicacao principal
 """
-from flask import Flask, render_template, redirect
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-app.debug = True
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'firebird+fdb://sysdba:masterkey@/C:/Ello/Dados/ELLO.ELLO?charset=latin1'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+from flask import Flask, Blueprint
+from .database import db
+from .chamados.controllers import chamados_blueprint
 
 
-class Usuario(db.Model):
-    __tablename__ = 'TSOLSOLICITACAO'
-    idsolicitacao = db.Column(db.Integer, primary_key=True)
-    idcliente = db.Column(db.String(2))
-    solicitante = db.Column(db.Text)
-    situacao = db.Column(db.String(255))
-     = db.Column(db.String(80))
-
-    def __init__(self):
-        self.senha = '11234'
-
-@app.route('/')
-def relacao_de_usuarios():
-    usuarios = Usuario.query.all()
-    return render_template('usuarios.html', usuarios=usuarios)
+def create_app(config):
+    app = Flask(__name__)
+    app.config.from_object(config)
+    register_extensions(app)
+    register_blueprints(app)
+    return app
 
 
-@app.route('/novousuario/<nome>')
-def insere_novo_usuario(nome):
-    usuario = Usuario()
-    usuario.nome = nome
-    db.session.add(usuario)
-    db.session.commit()
-    return redirect('/usuarios')
+def register_extensions(app):
+    db.init_app(app)
 
 
-# db.create_all()
-
-app.run()
+def register_blueprints(app):
+    app.register_blueprint(chamados_blueprint, url_prefix="/chamados")

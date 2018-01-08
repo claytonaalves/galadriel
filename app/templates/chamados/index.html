@@ -1,21 +1,34 @@
 {% extends "layout.html" %}
 {% block body %}
-<table>
+<table class="striped">
   <thead>
     <tr>
       <th>#</th>
+      <th>Abertura</th>
       <th>Solicitante</th>
       <th>Descricao</th>
+      <th>...</th>
     </tr>
   </thead>
   <tbody>
     {% for chamado in chamados %}
     <tr>
       <td>{{ chamado.idsolicitacao }}</td>
+      <td>{{ chamado.aberturadata|datetime }} {{ chamado.aberturahora|time }}</td>
       <td>{{ chamado.solicitante }}</td>
-      <td>{{ chamado.descricao }}</td>
+      <td>{{ (chamado.descricao or '')[:100] }}</td>
+      <td>
+          <a class="btn" href=""><i class="small material-icons">remove_red_eye</i></a>
+        </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<div class="fixed-action-btn toolbar">
+  <a class="btn-floating btn-large red" href="/excecoes">
+    <i class="large material-icons">add</i>
+  </a>
+</div>
+
 {% endblock %}

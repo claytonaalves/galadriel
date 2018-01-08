@@ -7,8 +7,12 @@ class BaseConfig:
 
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
+    DATABASE_HOST = os.environ.get('FIREBIRD_SERVER')
+    DATABASE_USER = os.environ.get('FIREBIRD_USER')
+    DATABASE_PASSWORD = os.environ.get('FIREBIRD_PASSWORD')
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'firebird+fdb://sysdba:masterkey@/C:/Ello/Dados/ELLO.ELLO?charset=latin1'
+    SQLALCHEMY_DATABASE_URI = 'firebird+fdb://{}:{}@{}/ello?charset=latin1'.format(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST)
 
     DATABASE_CONNECT_OPTIONS = {}
 

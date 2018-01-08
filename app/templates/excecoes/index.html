@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="row">
+  <table class="highlight">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Exceção</th>
+        <th>Empresa</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for excecao in excecoes %}
+      <tr>
+        <td>{{ excecao.data }}</td>
+        <td>{{ excecao.nome }}</td>
+        <td>{{ excecao.empresa }}</td>
+        <td>
+          <a class="waves-effect waves-light btn" href="{{ excecao._id }}">Visualizar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

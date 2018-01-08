@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block body %}
+<nav>
+  <div class="nav-wrapper grey darken-3">
+    <a href="#" class="brand-logo">Ello tecnologia</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li>
+        <a href="/chamados">Chamados</a>
+      </li>
+      <li>
+        <a href="/excecoes">Exceções</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row">
+  <form class="col s12">
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{ excecao.data }}" type="text" class="validate" id="data">
+        <label for="data">Data</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{ excecao.empresa }}" type="text" class="validate" id="empresa">
+        <label for="empresa">Empresa</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{ excecao.versao_do_sistema }}" type="text" class="validate" id="versao_do_sistema">
+        <label for="versao">Versão do Sistema</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{ excecao.database }}" type="text" class="validate" id="database">
+        <label for="database">Banco de dados</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{ excecao.active_form }}" type="text" class="validate" id="active_form">
+        <label for="active_form">Janela ativa</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input value="{{ excecao.usuario }}" type="text" class="validate" id="usuario">
+        <label for="usuario">Usuário</label>
+      </div>
+      <div class="input-field col s6">
+        <input value="{{ excecao.terminal }}" type="text" class="validate" id="terminal">
+        <label for="terminal">Terminal</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{ excecao.exception_name }}" type="text" class="validate" id="exception_name">
+        <label for="exception_name">Exceção</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{ excecao.exception_message }}" type="text" class="validate" id="exception_message">
+        <label for="exception_message">Mensagem</label>
+      </div>
+    </div>
+
+  </form>
+</div>
+</body>
+
+</html>
+{% endblock %}

@@ -1,28 +1,21 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chamados</title>
-</head>
-<body>
-    <table>
-        <thead>
-            <tr>
-                <td>#</td>
-                <td>Solicitante</td>
-                <td>Descricao</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for chamado in chamados %}
-            <tr>
-                <td>{{ chamado.idsolicitacao }}</td>
-                <td>{{ chamado.solicitante }}</td>
-                <td>{{ chamado.descricao }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block body %}
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Solicitante</th>
+      <th>Descricao</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for chamado in chamados %}
+    <tr>
+      <td>{{ chamado.idsolicitacao }}</td>
+      <td>{{ chamado.solicitante }}</td>
+      <td>{{ chamado.descricao }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

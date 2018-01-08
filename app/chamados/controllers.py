@@ -7,5 +7,5 @@ chamados_blueprint = Blueprint('chamados', __name__)
 
 @chamados_blueprint.route('/')
 def index_chamados():
-    chamados = Chamado.query.all()
+    chamados = Chamado.query.limit(30)
     return render_template('chamados/index.html', chamados=chamados)

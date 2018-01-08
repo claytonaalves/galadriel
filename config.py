@@ -7,7 +7,7 @@ class BaseConfig:
 
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
-    DATABASE_HOST = os.environ.get('FIREBIRD_SERVER')
+    DATABASE_HOST = os.environ.get('FIREBIRD_HOST')
     DATABASE_USER = os.environ.get('FIREBIRD_USER')
     DATABASE_PASSWORD = os.environ.get('FIREBIRD_PASSWORD')
 

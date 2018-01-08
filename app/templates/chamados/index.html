@@ -13,12 +13,12 @@
   <tbody>
     {% for chamado in chamados %}
     <tr>
-      <td>{{ chamado.idsolicitacao }}</td>
-      <td>{{ chamado.aberturadata|datetime }} {{ chamado.aberturahora|time }}</td>
+      <td>{{ chamado.id_chamado }}</td>
+      <td>{{ chamado.data_abertura|datetime }} {{ chamado.aberturahora|time }}</td>
       <td>{{ chamado.solicitante }}</td>
       <td>{{ (chamado.descricao or '')[:100] }}</td>
       <td>
-          <a class="btn" href=""><i class="small material-icons">remove_red_eye</i></a>
+          <a class="btn" href="{{ chamado.id_chamado }}"><i class="small material-icons">remove_red_eye</i></a>
         </td>
     </tr>
     {% endfor %}
@@ -30,5 +30,4 @@
     <i class="large material-icons">add</i>
   </a>
 </div>
-
 {% endblock %}

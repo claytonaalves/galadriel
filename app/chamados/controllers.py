@@ -9,3 +9,10 @@ chamados_blueprint = Blueprint('chamados', __name__)
 def index_chamados():
     chamados = ultimos_chamados_em_aberto()
     return render_template('chamados/index.html', chamados=chamados)
+
+
+@chamados_blueprint.route('/<_id>')
+def detalhe_chamado(_id):
+    chamado = Chamado.query.filter_by(id_chamado=_id).one()
+    comentarios = chamado.obtem_comentarios().all()
+    return render_template('chamados/detalhe.html', chamado=chamado, comentarios=comentarios)

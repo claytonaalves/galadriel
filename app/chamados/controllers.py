@@ -6,7 +6,7 @@ chamados_blueprint = Blueprint('chamados', __name__)
 
 
 @chamados_blueprint.route('/')
-def index_chamados():
+def index():
     chamados = ultimos_chamados_em_aberto()
     return render_template('chamados/index.html', chamados=chamados)
 

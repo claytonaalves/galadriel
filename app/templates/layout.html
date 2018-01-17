@@ -10,6 +10,8 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
   <script src="/static/js/jquery.min.js"></script>
   <script src="/static/js/materialize.min.js"></script>
+  {% block head %}
+  {% endblock %}
   <title>Ello tecnologia</title>
 </head>
 
@@ -18,8 +20,9 @@
     <div class="nav-wrapper grey darken-3">
       <a href="#" class="brand-logo"><img src="/static/img/logo.png" alt="logo"></img></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/chamados">Chamados</a></li>
-        <li><a href="/excecoes">Exceções</a></li>
+        <li><a href="{{ url_for('chamados.index') }}">Chamados</a></li>
+        <li><a href="{{ url_for('excecoes.index') }}">Exceções</a></li>
+        <li><a href="{{ url_for('graficos.index') }}">Gráficos</a></li>
       </ul>
     </div>
   </nav>

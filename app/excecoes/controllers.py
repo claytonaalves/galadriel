@@ -6,7 +6,7 @@ excecoes_blueprint = Blueprint('excecoes', __name__)
 
 
 @excecoes_blueprint.route('/')
-def index_excecoes():
+def index():
     return render_template('excecoes/index.html', excecoes=todas_excecoes(db))
 
 

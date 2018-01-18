@@ -42,6 +42,10 @@ class Excecao:
         return self._excecao['ExceptionName']
 
     @property
+    def stacktrace(self):
+        return self._excecao['StackTrace']
+
+    @property
     def empresa(self):
         return self._excecao['Empresa']
 
@@ -49,11 +53,18 @@ class Excecao:
         return self._excecao[lower_case_underscore_to_camel_case(attr)]
 
 
-def todas_excecoes(db):
-    for exc in db.exceptions.find().sort('_id', -1).limit(10):
+def todas_excecoes(db, limit, offset):
+    if offset>0:
+        query = db.exceptions.find().sort('_id', -1).skip(offset).limit(limit)
+    else:
+        query = db.exceptions.find().sort('_id', -1).limit(10)
+    for exc in query:
         yield Excecao(exc)
-        # video['date'] = video['_id'].generation_time
-    #    print(exc['_id'].generation_time)
+
+
+def todas_excecoes_por_cliente(db, matricula):
+    for exc in db.exceptions.find({"Matricula": int(matricula)}).sort('_id', -1).limit(10):
+        yield Excecao(exc)
 
 
 def obtem_excecao(_id, db):

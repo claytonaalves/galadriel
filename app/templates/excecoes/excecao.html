@@ -63,7 +63,16 @@
         </div>
       </div>
 
+      {% if excecao.stacktrace %}
+      <div class="row">
+        <div class="input-field col s12">
+            {{ excecao.stacktrace }}
+        </div>
+      </div>
+      {% endif %}
+
     </form>
+
   </div>
 </div>
 {% endblock %}

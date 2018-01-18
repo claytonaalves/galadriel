@@ -3,12 +3,7 @@
 <div class="row">
   <table class="striped">
     <thead>
-      <tr>
-        <th>Data</th>
-        <th>Exceção</th>
-        <th>Empresa</th>
-        <th></th>
-      </tr>
+      <tr> <th>Data</th> <th>Exceção</th> <th>Empresa</th> <th></th> </tr>
     </thead>
     <tbody>
       {% for excecao in excecoes %}
@@ -23,5 +18,22 @@
       {% endfor %}
     </tbody>
   </table>
+
+  {% if pages.count > 1 %}
+  <div class="row">
+    <ul class="pagination">
+      <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+      {% for page in pages %}
+        {% if page.is_active %}
+        <li class="active"><a href="#">{{ page.number }}</a></li>
+        {% else %}
+        <li class="waves-effect"><a href="{{ url_for('excecoes.index', p=page.number) }}">{{ page.number }}</a></li>
+        {% endif %}
+      {% endfor %}
+      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+  </div>
+  {% endif %}
+
 </div>
 {% endblock %}

@@ -16,7 +16,11 @@
           <p style="color: #909090">
             <i class="tiny material-icons">perm_identity</i> {{ chamado.solicitante }}
           </p>
-          <p style="margin-top: 15px">{{ chamado.descricao }}</p>
+          <div style="margin-top: 15px">
+{% filter markdown %}
+{{ chamado.descricao }}
+{% endfilter %}
+          </div>
         </div>
         <div class="card-action">
           <a href="#">Finalizar</a>
@@ -34,11 +38,13 @@
     <div class="col s12">
       <div class="card">
         <div class="card-content">
-          <div>
+          <small>
             <i class="tiny material-icons">query_builder</i> {{ comentario.data|datetime }}
-          </div>
-          <div>
-            {{ comentario.descricao }}
+          </small>
+          <div class="markdown" style="margin-top: 15px">
+{% filter markdown %}
+{{ comentario.descricao }}
+{% endfilter %}
           </div>
         </div>
       </div>

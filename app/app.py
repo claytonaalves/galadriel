@@ -1,6 +1,8 @@
 """ Aplicacao principal
 """
 from flask import Flask, Blueprint
+from flaskext.markdown import Markdown
+
 from .database import db
 from .formatters import register_formatters
 
@@ -20,6 +22,7 @@ def create_app(config):
 
 def register_extensions(app):
     db.init_app(app)
+    Markdown(app)
 
 
 def register_blueprints(app):

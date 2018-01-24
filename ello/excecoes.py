@@ -1,3 +1,4 @@
+# encoding: utf8
 import re
 
 from pymongo import MongoClient
@@ -51,6 +52,17 @@ class Excecao:
 
     def __getattr__(self, attr):
         return self._excecao[lower_case_underscore_to_camel_case(attr)]
+
+    @property
+    def versao(self):
+        """ Retorna a versão da estrutura do objeto Excecao
+        """
+        # Aqui vou considerar que se o objeto tiver o atributo System, a versão será a 2.
+        # Posteriormente lembrar de adicionar um atributo Version para melhor identificar a versão.
+        if self._excecao.get("System"):
+            return 2
+        else:
+            return 1
 
 
 def todas_excecoes(db, limit, offset):

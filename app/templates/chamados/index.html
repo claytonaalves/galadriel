@@ -14,7 +14,7 @@
     {% for chamado in chamados %}
     <tr>
       <td>{{ chamado.id_chamado }}</td>
-      <td>{{ chamado.data_abertura|datetime }} {{ chamado.aberturahora|time }}</td>
+      <td>{{ chamado.data_abertura|date }} {{ chamado.aberturahora|time }}</td>
       <td>{{ chamado.solicitante }}</td>
       <td>{{ (chamado.descricao or '')[:100] }}</td>
       <td>

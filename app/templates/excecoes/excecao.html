@@ -62,7 +62,14 @@
                         {% endif %}
                         
                         {% if excecao.stacktrace %}
-                        {{ excecao.stacktrace }}
+                        <div class="row">
+                            <div class="col s12 m4 l2"><i class="tiny material-icons">computer</i> Stacktrace</div>
+                            <div class="col s12">                             
+                                <pre>
+                                {{- excecao.stacktrace }}
+                                </pre>
+                            </div>    
+                        </div>
                         {% endif %}
                     </div>
 

@@ -1,5 +1,13 @@
 {% extends "layout.html" %} {% block body %}
 
+{% block metatags %}
+<meta property="og:site_name" content="Ello tecnologia" />
+<meta property="og:url" content="http://os.ellotecnologia.net.br/chamados/{{ chamado.id_chamado }}" />
+<meta property="og:title" content="Chamado #{{ chamado.id_chamado }}" />
+<meta property="og:description" content="{{ (chamado.descricao or 'Sem descrição')[:100] }}" />
+<meta property="og:image" content="http://www.ellotecnologia.com/logo.png" />
+{% endblock %}
+
 <div class="container">
 
   <div class="row">

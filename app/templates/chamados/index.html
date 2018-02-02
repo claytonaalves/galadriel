@@ -13,6 +13,7 @@
   </thead>
   <tbody>
     {% for chamado in chamados %}
+    {% set cor_badge = "red" if chamado.situacao==1 else "blue" %}
     <tr class="clickable-row" data-href="{{ chamado.id_chamado }}">
       <td>{{ chamado.id_chamado }}</td>
       <td>{{ chamado.data_abertura|date }} {{ chamado.aberturahora|time }}</td>
@@ -20,6 +21,7 @@
       <td>{{ chamado.responsavel.nome }}</td>
       <td>{{ (chamado.descricao or '')[:100] }}</td>
       <td>
+        <span class="new badge {{ cor_badge }}" data-badge-caption="{{ chamado.obtem_status() }}"></span>
       </td>
     </tr>
     {% endfor %}

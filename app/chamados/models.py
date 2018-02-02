@@ -1,6 +1,6 @@
 # encoding: utf8
 
-from sqlalchemy import ForeignKey, desc
+from sqlalchemy import ForeignKey, desc, or_
 from sqlalchemy.orm import relationship
 from app.database import db
 
@@ -17,7 +17,7 @@ class Chamado(db.Model):
     id_chamado = db.Column('idsolicitacao', db.Integer, primary_key=True)
     idcliente = db.Column(db.String(2))
     relator = db.Column('solicitante', db.Text)
-    situacao = db.Column(db.String(255))
+    situacao = db.Column(db.Integer)
     descricao = db.Column(db.Text())
     data_abertura = db.Column('aberturadata', db.Date())
     aberturahora = db.Column(db.Time())
@@ -35,6 +35,12 @@ class Chamado(db.Model):
 
     def obtem_comentarios(self):
         return Comentario.query.filter_by(id_chamado=self.id_chamado)
+
+    def obtem_status(self):
+        if self.situacao==1:
+            return "aguardando"
+        elif self.situacao==2:
+            return "executando"
 
 
 class Comentario(db.Model):
@@ -57,7 +63,7 @@ class Cliente(db.Model):
 def ultimos_chamados_em_aberto():
     return (
         Chamado.query
-            .filter_by(situacao='1')
+            .filter(or_(Chamado.situacao==1, Chamado.situacao==2))
             .order_by(desc(Chamado.id_chamado))
             .limit(50)
     )

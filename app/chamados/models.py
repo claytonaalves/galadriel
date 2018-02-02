@@ -5,17 +5,26 @@ from sqlalchemy.orm import relationship
 from app.database import db
 
 
+class Responsavel(db.Model):
+    __tablename__ = "TGERUSUARIO"
+    id_usuario = db.Column('idusuario', db.Integer, primary_key=True)
+    nome = db.Column(db.String(60))
+    #chamado = relationship("Chamado", back_populates="TGERUSUARIO")
+
+
 class Chamado(db.Model):
     __tablename__ = 'TSOLSOLICITACAO'
     id_chamado = db.Column('idsolicitacao', db.Integer, primary_key=True)
     idcliente = db.Column(db.String(2))
-    solicitante = db.Column(db.Text)
+    relator = db.Column('solicitante', db.Text)
     situacao = db.Column(db.String(255))
     descricao = db.Column(db.Text())
-    solicitante = db.Column(db.String(30))
     data_abertura = db.Column('aberturadata', db.Date())
     aberturahora = db.Column(db.Time())
     cliente = relationship('Cliente', primaryjoin='foreign(Chamado.idcliente) == remote(Cliente.id_cliente)')
+    #responsavel = relationship('Responsavel', primaryjoin='foreign(Chamado.responsavel) == remote(Responsavel.id_usuario)')
+    id_responsavel = db.Column('responsavel', db.Integer, ForeignKey('TGERUSUARIO.idusuario'))
+    responsavel = relationship('Responsavel')
     
     def obtem_titulo(self):
         descricao = self.descricao or u'Sem descrição'
@@ -50,5 +59,5 @@ def ultimos_chamados_em_aberto():
         Chamado.query
             .filter_by(situacao='1')
             .order_by(desc(Chamado.id_chamado))
-            .limit(30)
+            .limit(50)
     )

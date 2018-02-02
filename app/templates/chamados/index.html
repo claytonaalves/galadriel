@@ -1,25 +1,26 @@
 {% extends "layout.html" %}
 {% block body %}
-<table class="striped">
+<table class="highlight ello-table">
   <thead>
     <tr>
       <th>#</th>
       <th>Abertura</th>
-      <th>Solicitante</th>
+      <th>Relator</th>
+      <th>Responsável</th>
       <th>Descricao</th>
       <th>...</th>
     </tr>
   </thead>
   <tbody>
     {% for chamado in chamados %}
-    <tr>
+    <tr class="clickable-row" data-href="{{ chamado.id_chamado }}">
       <td>{{ chamado.id_chamado }}</td>
       <td>{{ chamado.data_abertura|date }} {{ chamado.aberturahora|time }}</td>
-      <td>{{ chamado.solicitante }}</td>
+      <td>{{ chamado.relator }}</td>
+      <td>{{ chamado.responsavel.nome }}</td>
       <td>{{ (chamado.descricao or '')[:100] }}</td>
       <td>
-          <a class="btn" href="{{ chamado.id_chamado }}"><i class="small material-icons">remove_red_eye</i></a>
-        </td>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
@@ -30,4 +31,12 @@
     <i class="large material-icons">add</i>
   </a>
 </div>
+
+<script type="text/javascript"> 
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
 {% endblock %}

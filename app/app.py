@@ -4,6 +4,7 @@ from flask import Flask, Blueprint, render_template
 from flaskext.markdown import Markdown
 
 from .database import db
+from .cache import cache
 from .formatters import register_formatters
 
 from .chamados.controllers import chamados_blueprint
@@ -23,6 +24,7 @@ def create_app(config):
 
 def register_extensions(app):
     db.init_app(app)
+    cache.init_app(app, config={'CACHE_TYPE': 'simple'})
     Markdown(app)
 
 

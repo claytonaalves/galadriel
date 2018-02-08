@@ -1,42 +1,152 @@
 {% extends "layout.html" %}
 
 {% block head %}
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src = "https://code.highcharts.com/highcharts.js"></script> 
+<script src = "{{ url_for('static', filename='js/axios.min.js') }}"></script> 
 {% endblock %}
 
 {% block body %}
 
+<div class="container responsive" style="margin-top: 50px">
     <div class="row">
-        <div class="col m6">
-            <div id="piechart" style="width: 800px; height: 600px;"></div>
+        <div class="col s12 m6">
+            <div id="grafico_empresas"></div>
         </div>
-        <div class="col m6">
-            <div id="piechart2" style="width: 800px; height: 600px;"></div>
+        <div class="col s12 m6">
+            <div id="grafico_versoes_em_uso"></div>
         </div>
     </div>
 
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        {% autoescape false %}
-        var data = google.visualization.arrayToDataTable({{ dataset1 }});
-        var data2 = google.visualization.arrayToDataTable({{ dataset2 }});
-        {% endautoescape %}
+    <div class="row">
+        <div class="col s12 m6">
+            <div id="grafico_chamados_finalizados"></div>
+        </div>
+        <div class="col s12 m6">
+            <div id="grafico_chamados_em_aberto"></div>
+        </div>
+    </div>
 
-        var options = {
-           title: 'Tipos de Empresa (Grupos com mais de 4 empresas)'
-        };
+    <div class="row">
+        <div class="col s12">
+            <div id="grafico_chamados_por_cliente"></div>
+        </div>
+    </div>
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        chart.draw(data, options);
+    <div class="row">
+        <div class="col s12 m6">
+            <div id="grafico_sistema_operacional"></div>
+        </div>
+        <div class="col s12 m6">
+            <div id="grafico_resolucoes"></div>
+        </div>
+    </div>
+</div>
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
-        chart.draw(data2, {
-           title: 'Tipos de Empresa (Grupos com menos de 5 empresas)'
+<script language = "JavaScript">
+$(document).ready(function() {
+    axios.get('/graficos/chamados_finalizados')
+        .then(function(response) {
+            let config = {
+                type: 'column',
+                title: 'Chamados finalizados',
+                subtitle: 'Finalizados nos últimos 7 dias',
+                seriesName: 'Quantidade'
+            };
+            createChart('grafico_chamados_finalizados', config, response.data);
         });
-      }
-    </script>
 
+    axios.get('/graficos/chamados_em_aberto')
+        .then(function(response) {
+            let config = {
+                type: 'column',
+                title: 'Chamados em aberto',
+                subtitle: 'Quantidade de chamados em aberto',
+                seriesName: 'Quantidade'
+            };
+            createChart('grafico_chamados_em_aberto', config, response.data);
+        });
+
+    axios.get('/graficos/top_5_chamados_por_cliente')
+        .then(function(response) {
+            let config = {
+                type: 'column',
+                title: 'TOP 5 Chamados por Cliente',
+                subtitle: 'Clientes que abrem mais chamados',
+                seriesName: 'Quantidade'
+            };
+            createChart('grafico_chamados_por_cliente', config, response.data);
+        });
+
+    axios.get('/graficos/empresas')
+        .then(function(response) {
+            let config = {
+                type: 'pie',
+                title: 'Empresas por categoria',
+                seriesName: 'Percentual'
+            };
+            createChart('grafico_empresas', config, response.data);
+        });
+
+    axios.get('/graficos/versao_windows')
+        .then(function(response) {
+            let config = {
+                type: 'bar',
+                title: 'Sistema Operacional',
+                seriesName: 'Percentual'
+            };
+            createChart('grafico_sistema_operacional', config, response.data);
+        });
+
+    axios.get('/graficos/resolucoes')
+        .then(function(response) {
+            let config = {
+                type: 'bar',
+                title: 'Resoluções de Tela',
+                seriesName: 'Percentual'
+            };
+            createChart('grafico_resolucoes', config, response.data);
+        });
+
+    axios.get('/graficos/versoes_em_uso')
+        .then(function(response) {
+            let config = {
+                type: 'pie',
+                title: 'Versões em uso',
+                seriesName: 'Percentual'
+            };
+            createChart('grafico_versoes_em_uso', config, response.data);
+        });
+});
+
+function createChart(elementId, config, values) {
+    var names = values.map(function (e) { return e.name });
+
+    Highcharts.chart(elementId, {
+        chart: { type: config.type }, 
+        title: { text: config.title },
+        subtitle: { text: config.subtitle || ''},
+        xAxis: { categories: names},
+        yAxis: {
+            min: 0,
+            title: { text: 'Quantidade' }      
+        },
+        credits: { enabled: false },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0,
+                colorByPoint: true
+            }
+        },
+        series: [{ 
+            name: config.seriesName || null,
+            data: values
+        }]
+    }
+    );
+}
+
+</script>
 
 {% endblock %}

@@ -31,6 +31,11 @@ class Chamado(db.Model):
         linhas_descricao = descricao.splitlines()
         titulo = linhas_descricao[0]
         # self.descricao = ''.join(linhas_descricao[1:])
+
+        # Normalizar o título pq tem gente que só vive com o CAPSLOCK ligado
+        if titulo.isupper():
+            titulo = titulo.capitalize()
+
         return titulo
 
     def obtem_comentarios(self):

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="row">
-  <table class="striped">
+  <table class="bordered highlight ello-table">
     <thead>
       <tr> <th>Data</th> <th>Exceção</th> <th>Empresa</th> <th></th> </tr>
     </thead>
@@ -12,7 +12,8 @@
         <td>{{ excecao.nome }}</td>
         <td>{{ excecao.empresa }}</td>
         <td>
-          <a class="waves-effect waves-light btn" href="{{ excecao._id }}">Visualizar</a>
+          <a class="waves-effect waves-light" href="{{ excecao._id }}"><i class="material-icons">zoom_in</i></a>
+          <a class="waves-effect waves-light" href="#"><i class="material-icons">delete</i></a>
         </td>
       </tr>
       {% endfor %}

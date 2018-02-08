@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-<table class="highlight ello-table">
+<table class="bordered highlight ello-table">
+  <colgroup>
+    <col style="width:3.66%">
+    <col style="width:25.66%">
+    <col style="width:16.66%">
+    <col style="width:16.66%">
+    <col style="width:20%">
+    <col style="width:16.66%">
+  </colgroup>
   <thead>
     <tr>
       <th>#</th>
@@ -19,7 +27,7 @@
       <td>{{ chamado.data_abertura|date }} {{ chamado.aberturahora|time }}</td>
       <td>{{ chamado.relator }}</td>
       <td>{{ chamado.responsavel.nome }}</td>
-      <td>{{ (chamado.descricao or '')[:100] }}</td>
+      <td class="descricao-ellipsis">{{ chamado.obtem_titulo() }}</td>
       <td>
         <span class="new badge {{ cor_badge }}" data-badge-caption="{{ chamado.obtem_status() }}"></span>
       </td>
@@ -28,8 +36,8 @@
   </tbody>
 </table>
 
-<div class="fixed-action-btn toolbar">
-  <a class="btn-floating btn-large red" href="/excecoes">
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large blue waves-effect waves-light" href="adicionar">
     <i class="large material-icons">add</i>
   </a>
 </div>

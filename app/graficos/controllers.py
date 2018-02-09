@@ -147,7 +147,7 @@ group by a.versao
 """)
     counter = Counter()
     for versao, qtde in res:
-        versao = versao.strip()
+        versao = '.'.join(versao.split('.')[:3])
         counter.update({versao: qtde})
     total = sum(counter.itervalues())
     dataset = []
@@ -157,3 +157,48 @@ group by a.versao
         dataset.append({"name": item, "y": percentual})
     return jsonify(dataset)
 
+
+@graficos_blueprint.route('/clientes_internet')
+@cache.cached(timeout=86400)
+def estatisticas_clientes_internet():
+    res = db.engine.execute("""
+with autenticacoes_ultimos_7_dias as (
+    SELECT DISTINCT t.IDCLIENTE
+    FROM TAUTENTICACOES t
+    WHERE t.DATA >= CURRENT_DATE - 7
+),
+clientes_ativos as (
+    select 
+        cli.idcliente, cli.nome, cli.fantasia
+    from treccliente cli
+    where cli.ativo='S'
+)
+select cli.idcliente, case when aut.idcliente is null THEN 'NAO' else 'SIM' END AS POSSUI_INTERNET
+from clientes_ativos cli 
+left join autenticacoes_ultimos_7_dias aut on (cli.idcliente=aut.idcliente)
+order by aut.idcliente
+""")
+
+    # Ignorar estes clientes
+    # 469 TERRA DO BOI
+    # 399 CASAS DAS ANTENAS
+    # 459 NAFTA TRANSPORTES
+    # 463 BMG MADEIRAS - CT-E
+    # 458 TRANSPORTES FRANCA
+    # 208 CONSUMIDOR / ORÇAMENTOS
+
+    clientes_ignorados = (469, 399, 459, 463, 458, 208)
+    com_internet = 0
+    sem_internet = 0
+    for id_cliente, possui_internet in res:
+        if id_cliente in clientes_ignorados:
+            continue
+        if possui_internet == "SIM":
+            com_internet += 1
+        else:
+            sem_internet += 1
+    dataset = [
+        {"name": "Com Internet", "y": com_internet},
+        {"name": "Sem Internet", "y": sem_internet}
+    ]
+    return jsonify(dataset)

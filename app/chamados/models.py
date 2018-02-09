@@ -1,4 +1,5 @@
 # encoding: utf8
+from __future__ import unicode_literals
 
 from sqlalchemy import ForeignKey, desc, or_
 from sqlalchemy.orm import relationship
@@ -43,9 +44,11 @@ class Chamado(db.Model):
 
     def obtem_status(self):
         if self.situacao==1:
-            return "aguardando"
+            return "Aguardando"
         elif self.situacao==2:
-            return "executando"
+            return "Executando"
+        else:
+            return "Concluído"
 
 
 class Comentario(db.Model):
@@ -57,6 +60,8 @@ class Comentario(db.Model):
     hora = db.Column(db.Time())
     id_operador = db.Column('idoperador', db.Integer)
     descricao = db.Column(db.Text)
+    id_operador = db.Column('idoperador', db.Integer, ForeignKey('TGERUSUARIO.idusuario'))
+    responsavel = relationship('Responsavel')
 
 
 class Cliente(db.Model):

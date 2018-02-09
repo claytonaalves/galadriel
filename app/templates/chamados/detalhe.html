@@ -12,6 +12,10 @@
 <meta property="og:image:alt" content="Logomarca" />
 {% endblock %}
 
+{% 
+set cor_badge = ("red", "blue", "green")[chamado.situacao-1]
+%}
+
 <div class="container">
 
   <div class="row">
@@ -21,10 +25,17 @@
           <span class="card-title truncate">{{ chamado.obtem_titulo() }}</span>
         </div>
         <div class="card-content">
-          <p style="color: #909090">
-            <i class="tiny material-icons">perm_identity</i> {{ chamado.cliente.nome }}
-            <i class="tiny material-icons">query_builder</i> {{ chamado.data_abertura|datetime }}
-          </p>
+          <div class="row">
+              <div class="col s11">
+                  <p style="color: #909090">
+                    <i class="tiny material-icons">perm_identity</i> {{ chamado.cliente.nome }}
+                    <i class="tiny material-icons">query_builder</i> {{ chamado.data_abertura|datetime }}
+                  </p>
+              </div>
+              <div class="col s1">
+        <span class="new badge {{ cor_badge }}" data-badge-caption="{{ chamado.obtem_status() }}"></span>
+              </div>
+          </div>
           <p style="color: #909090">
             <i class="tiny material-icons">perm_identity</i> {{ chamado.relator }}
           </p>
@@ -50,12 +61,13 @@
     <div class="col s12">
       <div class="card">
         <div class="card-content">
-          <small>
-            <i class="tiny material-icons">query_builder</i> {{ comentario.data|datetime }}
-          </small>
+              <small> <i class="tiny material-icons">query_builder</i> {{ comentario.data|datetime }} </small>
+              <small> <i class="tiny material-icons">perm_identity</i> {{ comentario.responsavel.nome }} </small>
           <div class="markdown" style="margin-top: 15px">
 {% filter markdown %}
+{% autoescape false %}
 {{ comentario.descricao }}
+{% endautoescape %}
 {% endfilter %}
           </div>
         </div>

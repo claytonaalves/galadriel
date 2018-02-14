@@ -1,6 +1,8 @@
 # encoding: utf8
 from __future__ import unicode_literals
 
+import datetime
+
 from sqlalchemy import ForeignKey, desc, or_
 from sqlalchemy.orm import relationship
 from app.database import db
@@ -62,6 +64,9 @@ class Comentario(db.Model):
     descricao = db.Column(db.Text)
     id_operador = db.Column('idoperador', db.Integer, ForeignKey('TGERUSUARIO.idusuario'))
     responsavel = relationship('Responsavel')
+
+    def data_completa(self):
+        return datetime.datetime.combine(self.data, self.hora)
 
 
 class Cliente(db.Model):

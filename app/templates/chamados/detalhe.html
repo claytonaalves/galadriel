@@ -22,7 +22,7 @@ set cor_badge = ("red", "blue", "green")[chamado.situacao-1]
     <div class="col s12">
       <div class="card">
         <div class="card-content blue-grey darken-1 white-text">
-          <span class="card-title truncate">{{ chamado.obtem_titulo() }}</span>
+          <span class="card-title truncate">#{{ chamado.id_chamado }} - {{ chamado.obtem_titulo() }}</span>
         </div>
         <div class="card-content">
           <div class="row">
@@ -61,7 +61,7 @@ set cor_badge = ("red", "blue", "green")[chamado.situacao-1]
     <div class="col s12">
       <div class="card">
         <div class="card-content">
-              <small> <i class="tiny material-icons">query_builder</i> {{ comentario.data|datetime }} </small>
+              <small> <i class="tiny material-icons">query_builder</i> {{ comentario.data_completa()|datetime }} </small>
               <small> <i class="tiny material-icons">perm_identity</i> {{ comentario.responsavel.nome }} </small>
           <div class="markdown" style="margin-top: 15px">
 {% filter markdown %}

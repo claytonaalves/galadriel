@@ -20,21 +20,16 @@
     </tbody>
   </table>
 
-  {% if pages.count > 1 %}
-  <div class="row">
+  <div style="text-align: center"; class="row">
     <ul class="pagination">
-      <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-      {% for page in pages %}
-        {% if page.is_active %}
-        <li class="active"><a href="#">{{ page.number }}</a></li>
-        {% else %}
-        <li class="waves-effect"><a href="{{ url_for('excecoes.index', p=page.number) }}">{{ page.number }}</a></li>
-        {% endif %}
-      {% endfor %}
-      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    {% for p in pages %}
+      <li class="page-item {{p['class']}}">
+        <a href="{{ url_for('excecoes.index', p=p['href']) }}" class="page-link">
+          <span>{{p['page_label'] | safe}}</span>
+        </a>
+      </li>
+    {% endfor %}
     </ul>
-  </div>
-  {% endif %}
-
+  </div>    
 </div>
 {% endblock %}

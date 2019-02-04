@@ -1,6 +1,6 @@
 # Galadriel
 
-Aplicativo para controle de chamados internos Ello
+Aplicação de controle de chamados e dashboard de monitoramento de uso.
 
 ## Preparação do ambiente de desenvolvimento
 
@@ -10,12 +10,33 @@ Aplicativo para controle de chamados internos Ello
 ### Ativar virtualenv e instalar dependências
 
 ```
-C:\...\galadriel> virtualenv.exe venv
-C:\...\galadriel> venv\Scripts\activate
-C:\...\galadriel> pip install -r requirements.txt
+$ virtualenv.exe venv
+$ venv\Scripts\activate
+$ pip install -r requirements.txt
+$ npm install
+```
+
+## Exportar imagem docker
+
+```
+$ docker save galadriel -o galadriel.container
+```
+
+## Importar imagem docker
+
+```
+$ docker load < galadriel.container
 ```
 
 ## Executar aplicação
 
-TODO...
-
+```
+docker run -d \
+--name galadriel \
+--restart always \
+--env FIREBIRD_HOST=ip_do_servidor \
+--env FIREBIRD_USER=sysdba \
+--env FIREBIRD_PASSWORD=senha \
+-p 5000:5000 \
+galadriel
+```

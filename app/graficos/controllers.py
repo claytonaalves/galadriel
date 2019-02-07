@@ -105,10 +105,10 @@ group by a.VERSAO_WINDOWS
     for versao, qtde in res:
         versao = versao.split('-')[0].strip()
         counter.update({versao: qtde})
-    total = sum(counter.itervalues())
+    total = sum(counter.values())
     dataset = []
     # transforma valores em percentual
-    for item, value in counter.iteritems():
+    for item, value in counter.items():
         percentual = round((value * 100) / total, 2)
         dataset.append({"name": item, "y": percentual})
     return jsonify(dataset)
@@ -127,10 +127,10 @@ group by a.RESOLUCAO
     for resolucao, qtde in res:
         resolucao = resolucao.strip()
         counter.update({resolucao: qtde})
-    total = sum(counter.itervalues())
+    total = sum(counter.values())
     dataset = []
     # transforma valores em percentual
-    for item, value in counter.iteritems():
+    for item, value in counter.items():
         percentual = round((value * 100) / total, 2)
         dataset.append({"name": item, "y": percentual})
     return jsonify(dataset)
@@ -149,10 +149,10 @@ group by a.versao
     for versao, qtde in res:
         versao = '.'.join(versao.split('.')[:3])
         counter.update({versao: qtde})
-    total = sum(counter.itervalues())
+    total = sum(counter.values())
     dataset = []
     # transforma valores em percentual
-    for item, value in counter.iteritems():
+    for item, value in counter.items():
         percentual = round((value * 100) / total, 2)
         dataset.append({"name": item, "y": percentual})
     return jsonify(dataset)

@@ -1,7 +1,7 @@
 from app.app import create_app
 from config import BaseConfig
 
-from gevent.wsgi import WSGIServer
+from gevent.pywsgi import WSGIServer
 from werkzeug.serving import run_with_reloader
 from werkzeug.debug import DebuggedApplication
 

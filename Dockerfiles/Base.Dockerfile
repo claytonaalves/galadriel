@@ -1,4 +1,4 @@
-FROM python:2.7-slim
+FROM python:3.7-slim
 
 ADD requirements.txt /tmp/
 ADD requirements-prod.txt /tmp/

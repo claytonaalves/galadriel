@@ -2,16 +2,16 @@
 
 Aplicação de controle de chamados e dashboard de monitoramento de uso.
 
-## Preparação do ambiente de desenvolvimento
+## Ambiente de desenvolvimento
 
-- Instalar Virtualenv
-- Instalar node/npm
+- Python 3.7+
+- node/npm
 
 ### Ativar virtualenv e instalar dependências
 
 ```
-$ virtualenv.exe venv
-$ venv\Scripts\activate
+$ python -m venv venv
+$ venv/bin/activate
 $ pip install -r requirements.txt
 $ npm install
 ```

@@ -3,13 +3,13 @@ from dateutil.parser import parse
 
 
 def format_datetime(value):
-    if type(value) == unicode:
+    if type(value) == str:
         value = parse(value)
     return value.strftime("%d/%m/%Y %H:%M:%S")
 
 
 def format_date(value):
-    if type(value) == unicode:
+    if type(value) == str:
         value = parse(value)
     return value.strftime("%d/%m/%Y")
 

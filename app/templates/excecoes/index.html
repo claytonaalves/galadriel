@@ -1,35 +1,41 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="row">
-  <table class="bordered highlight ello-table">
-    <thead>
-      <tr> <th>Data</th> <th>Exceção</th> <th>Empresa</th> <th></th> </tr>
-    </thead>
-    <tbody>
-      {% for excecao in excecoes %}
-      <tr>
-        <td>{{ excecao.data }}</td>
-        <td>{{ excecao.nome }}</td>
-        <td>{{ excecao.empresa }}</td>
-        <td>
-          <a class="waves-effect waves-light" href="{{ excecao._id }}"><i class="material-icons">zoom_in</i></a>
-          <a class="waves-effect waves-light" href="#"><i class="material-icons">delete</i></a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <div class="col s12 m12">
+        <h5>Exceções</h5>
+        <div class="card">
+            <div class="card-content">
+                <table class="bordered highlight ello-table">
+                    <thead>
+                        <tr> <th>Data</th> <th>Exceção</th> <th>Empresa</th> <th></th> </tr>
+                    </thead>
+                    <tbody>
+                        {% for excecao in excecoes %}
+                        <tr>
+                            <td>{{ excecao.data }}</td>
+                            <td>{{ excecao.nome }}</td>
+                            <td>{{ excecao.empresa }}</td>
+                            <td>
+                                <a class="waves-effect waves-light" href="{{ excecao._id }}"><i class="material-icons">zoom_in</i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
-  <div style="text-align: center"; class="row">
-    <ul class="pagination">
-    {% for p in pages %}
-      <li class="page-item {{p['class']}}">
-        <a href="{{ url_for('excecoes.index', p=p['href']) }}" class="page-link">
-          <span>{{p['page_label'] | safe}}</span>
-        </a>
-      </li>
-    {% endfor %}
-    </ul>
-  </div>    
+                <div style="text-align: center"; class="row">
+                    <ul class="pagination">
+                        {% for p in pages %}
+                        <li class="page-item {{p['class']}}">
+                            <a href="{{ url_for('excecoes.index', p=p['href']) }}" class="page-link">
+                                <span>{{p['page_label'] | safe}}</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>    
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

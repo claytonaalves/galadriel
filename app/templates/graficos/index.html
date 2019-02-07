@@ -9,42 +9,83 @@
 {% block body %}
 
 <div class="container responsive" style="margin-top: 50px">
-    <div class="row">
-        <div class="col s12 m6">
-            <div id="grafico_empresas"></div>
-        </div>
-        <div class="col s12 m6">
-            <div id="grafico_clientes_internet"></div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col s12">
-            <div id="grafico_versoes_em_uso"></div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col s12">
-            <div id="grafico_chamados_por_cliente"></div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col s12 m6">
-            <div id="grafico_chamados_finalizados"></div>
-        </div>
-        <div class="col s12 m6">
-            <div id="grafico_chamados_em_aberto"></div>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">TOP 5 Chamados por Cliente</span>
+                    <div id="grafico_chamados_por_cliente"></div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col s12 m6">
-            <div id="grafico_sistema_operacional"></div>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Chamados finalizados</span>
+                    <div id="grafico_chamados_finalizados"></div>
+                </div>
+            </div>
         </div>
         <div class="col s12 m6">
-            <div id="grafico_resolucoes"></div>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Chamados em aberto</span>
+                    <div id="grafico_chamados_em_aberto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Empresas por Catetoria</span>
+                    <div id="grafico_empresas"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Cliente x Internet</span>
+                    <div id="grafico_clientes_internet"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Versões em uso</span>
+                    <div id="grafico_versoes_em_uso"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Sistema Operacional</span>
+                    <div id="grafico_sistema_operacional"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Resoluções de Tela</span>
+                    <div id="grafico_resolucoes"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -55,7 +96,6 @@ $(document).ready(function() {
         .then(function(response) {
             let config = {
                 type: 'column',
-                title: 'Chamados finalizados',
                 subtitle: 'Finalizados nos últimos 7 dias',
                 seriesName: 'Quantidade'
             };
@@ -66,7 +106,6 @@ $(document).ready(function() {
         .then(function(response) {
             let config = {
                 type: 'column',
-                title: 'Chamados em aberto',
                 subtitle: 'Quantidade de chamados em aberto',
                 seriesName: 'Quantidade'
             };
@@ -77,7 +116,6 @@ $(document).ready(function() {
         .then(function(response) {
             let config = {
                 type: 'column',
-                title: 'TOP 5 Chamados por Cliente',
                 subtitle: 'Chamados abertos nos últimos 30 dias',
                 seriesName: 'Quantidade'
             };
@@ -88,7 +126,6 @@ $(document).ready(function() {
         .then(function(response) {
             let config = {
                 type: 'pie',
-                title: 'Cliente x Internet',
                 subtitle: 'Clientes que possuem conexão com a Internet',
                 seriesName: 'Quantidade'
             };
@@ -99,7 +136,6 @@ $(document).ready(function() {
         .then(function(response) {
             let config = {
                 type: 'pie',
-                title: 'Empresas por categoria',
                 seriesName: 'Percentual'
             };
             createChart('grafico_empresas', config, response.data);
@@ -109,7 +145,6 @@ $(document).ready(function() {
         .then(function(response) {
             let config = {
                 type: 'bar',
-                title: 'Sistema Operacional',
                 seriesName: 'Percentual'
             };
             createChart('grafico_sistema_operacional', config, response.data);
@@ -119,7 +154,6 @@ $(document).ready(function() {
         .then(function(response) {
             let config = {
                 type: 'bar',
-                title: 'Resoluções de Tela',
                 seriesName: 'Percentual'
             };
             createChart('grafico_resolucoes', config, response.data);
@@ -129,7 +163,6 @@ $(document).ready(function() {
         .then(function(response) {
             let config = {
                 type: 'pie',
-                title: 'Versões em uso',
                 seriesName: 'Percentual'
             };
             createChart('grafico_versoes_em_uso', config, response.data);

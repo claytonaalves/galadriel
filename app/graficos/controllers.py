@@ -17,6 +17,11 @@ def index():
     return render_template('graficos/index.html')
 
 
+@graficos_blueprint.route('/clientes')
+def graficos_clientes():
+    return render_template('graficos/clientes.html')
+
+
 @graficos_blueprint.route('/empresas')
 @cache.cached(timeout=180)
 def estatisticas_empresas():
@@ -201,4 +206,24 @@ order by aut.idcliente
         {"name": "Com Internet", "y": com_internet},
         {"name": "Sem Internet", "y": sem_internet}
     ]
+    return jsonify(dataset)
+
+
+@graficos_blueprint.route('/clientes_por_cidade')
+@cache.cached(timeout=86400)
+def estatisticas_clientes_por_cidade():
+    res = db.engine.execute("""\
+SELECT
+  cid.nome,
+  COUNT(*)
+FROM TRecCliente cli
+LEFT JOIN TGERCIDADE cid ON (cid.IDCIDADE=cli.IDCIDADE)
+WHERE cli.Ativo='S'
+GROUP BY cli.IdCidade, cid.nome
+HAVING COUNT(*)>1
+ORDER BY 2 DESC;
+""")
+    dataset = []
+    for cidade, qtde in res:
+        dataset.append([cidade, qtde])
     return jsonify(dataset)
